@@ -26,12 +26,14 @@ useful-script/
 
 ## 🚀 Standalone Executables (No Python Required)
 
-Pre-built standalone `.exe` binaries are provided in the [`dist/`](dist/) folder. End users do not need to install Python or any dependencies:
+Pre-built standalone `.exe` binaries are automatically generated on every push by **GitHub Actions**:
 
-- **[`dist/auto_clear_temp_folder.exe`](dist/auto_clear_temp_folder.exe)** — Cleans Windows `%TEMP%` directory.
-- **[`dist/auto_clear_node_modules.exe`](dist/auto_clear_node_modules.exe)** — Recursively scans and cleans `node_modules` (and custom targets like `.next`, `dist`, `build`, etc.).
+- **Download directly:** Grab the latest `.exe` files from the [**GitHub Releases**](https://github.com/phuctran1203/useful-script/releases/tag/latest) page or the workflow **Artifacts** tab.
+- **`auto_clear_temp_folder.exe`** — Cleans Windows `%TEMP%` directory.
+- **`auto_clear_node_modules.exe`** — Recursively scans and cleans `node_modules` (and custom targets like `.next`, `dist`, `build`, etc.).
 
 > **Tip:** You can double-click either `.exe` directly in Windows Explorer. A terminal window will open to display progress and prompt for confirmation, and will stay open when finished so you can inspect the summary before dismissing it.
+
 
 ---
 

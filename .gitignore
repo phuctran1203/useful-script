@@ -1,5 +1,7 @@
-# PyInstaller intermediate cache (dist/ is unignored to keep the built .exe for GitHub)
+# PyInstaller build outputs
 build/
+dist/
+
 
 
 # Python bytecode & cache
