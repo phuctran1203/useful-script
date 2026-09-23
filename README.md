@@ -4,6 +4,26 @@ A collection of lightweight, high-performance Python utility scripts and standal
 
 ---
 
+## 📁 Repository Structure
+
+```
+useful-script/
+├── scripts/                      # Python source scripts
+│   ├── auto_clear_node_modules.py
+│   └── auto_clear_temp_folder.py
+├── specs/                        # PyInstaller build specification recipes
+│   ├── auto_clear_node_modules.spec
+│   └── auto_clear_temp_folder.spec
+├── dist/                         # Pre-built standalone Windows executables (.exe)
+│   ├── auto_clear_node_modules.exe
+│   └── auto_clear_temp_folder.exe
+├── build.py                      # Build runner to compile scripts to exe
+├── .gitignore
+└── README.md
+```
+
+---
+
 ## 🚀 Standalone Executables (No Python Required)
 
 Pre-built standalone `.exe` binaries are provided in the [`dist/`](dist/) folder. End users do not need to install Python or any dependencies:
@@ -17,7 +37,7 @@ Pre-built standalone `.exe` binaries are provided in the [`dist/`](dist/) folder
 
 ## 📂 Included Utilities
 
-### 1. Auto Clear Temp Folder (`auto_clear_temp_folder.py`)
+### 1. Auto Clear Temp Folder (`scripts/auto_clear_temp_folder.py`)
 
 Scans your system temporary folder (`%TEMP%` on Windows, `/tmp` on macOS/Linux) for files and directories older than 1 day and safely cleans them up using multi-threaded parallel deletion.
 
@@ -39,12 +59,12 @@ Scans your system temporary folder (`%TEMP%` on Windows, `/tmp` on macOS/Linux) 
   ```
 - **Run with Python:**
   ```powershell
-  python auto_clear_temp_folder.py [--dry-run]
+  python scripts/auto_clear_temp_folder.py [--dry-run]
   ```
 
 ---
 
-### 2. Auto Clear Node Modules & Build Artifacts (`auto_clear_node_modules.py`)
+### 2. Auto Clear Node Modules & Build Artifacts (`scripts/auto_clear_node_modules.py`)
 
 Recursively scans any directory (e.g. your workspace or projects root) to find and remove bulky `node_modules` folders, build outputs, and caches.
 
@@ -62,7 +82,7 @@ Recursively scans any directory (e.g. your workspace or projects root) to find a
   ```
 - **Run with Python:**
   ```powershell
-  python auto_clear_node_modules.py
+  python scripts/auto_clear_node_modules.py
   ```
 - When prompted, paste or drag-and-drop the directory path you want to scan.
 
@@ -70,24 +90,26 @@ Recursively scans any directory (e.g. your workspace or projects root) to find a
 
 ## 🛠️ Building Executables from Source
 
-If you modify the Python source files and want to rebuild the standalone `.exe` packages, use [PyInstaller](https://pyinstaller.org/):
+If you add new scripts or modify existing ones, you can compile them to standalone `.exe` packages using the included `build.py` script:
 
 1. **Install PyInstaller:**
    ```powershell
    pip install pyinstaller
    ```
 
-2. **Build `auto_clear_temp_folder.exe`:**
+2. **Build All Scripts:**
    ```powershell
-   python -m PyInstaller --onefile --console --name auto_clear_temp_folder auto_clear_temp_folder.py
+   python build.py
    ```
 
-3. **Build `auto_clear_node_modules.exe`:**
+3. **Build a Specific Script:**
    ```powershell
-   python -m PyInstaller --onefile --console --name auto_clear_node_modules auto_clear_node_modules.py
+   python build.py auto_clear_temp_folder
+   # or
+   python build.py auto_clear_node_modules
    ```
 
-Built binaries will be placed in the `dist/` directory.
+All generated `.exe` files will be placed into [`dist/`](dist/) and their respective `.spec` configurations saved in [`specs/`](specs/).
 
 ---
 

@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['auto_clear_temp_folder.py'],
+    ['../scripts/auto_clear_temp_folder.py'],
     pathex=[],
     binaries=[],
     datas=[],
