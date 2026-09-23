@@ -1,9 +1,19 @@
 import os
 import shutil
+import sys
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import List, Tuple
+
+# Ensure stdout and stderr support UTF-8 (emojis) without crashing on Windows console
+if sys.platform == "win32":
+    os.system("")  # Enables ANSI / VT100 console processing on Windows
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 
 def human_size(b: int) -> str:
     """Convert bytes to human-readable format."""
@@ -145,4 +155,15 @@ if __name__ == "__main__":
     if dry_run:
         print("🔍 DRY RUN MODE - No files will be deleted\n")
     
-    clear_temp(n_days, dry_run=dry_run)
+    try:
+        clear_temp(n_days, dry_run=dry_run)
+    except Exception as e:
+        print(f"\n❌ An unexpected error occurred: {e}")
+    finally:
+        # Keep console open when running as standalone executable so end users can read the output
+        if getattr(sys, "frozen", False):
+            try:
+                input("\nPress Enter to exit...")
+            except (KeyboardInterrupt, EOFError):
+                pass
+
