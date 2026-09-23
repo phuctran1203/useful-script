@@ -8,9 +8,19 @@ Usage:
     python build.py <name>       # Builds a specific script (e.g. python build.py auto_clear_temp_folder)
 """
 
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+# Ensure UTF-8 output encoding on Windows console and CI runners
+if sys.platform == "win32":
+    os.system("")
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 
 ROOT_DIR = Path(__file__).parent.resolve()
 SCRIPTS_DIR = ROOT_DIR / "scripts"
